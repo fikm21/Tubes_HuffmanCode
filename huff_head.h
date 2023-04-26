@@ -14,20 +14,25 @@ typedef struct TbTree{
 	infotype info;
 	Taddres LSon;
 	Taddres RSon;
-}TreeNode;
+}TNode;
+
+typedef struct{
+	Taddres root;
+}Tree;
 
 typedef struct QueueNode {
-	TreeNode *n;
+	TNode *tn;
 	Qaddres next;
 	Qaddres prev;
 }Qnode;
 
-struct PriorityQueue
+typedef struct 
 {
-	struct QNode *front;
-	struct QNode *rear;
+	Qaddres front;
+	Qaddres rear;
 	int size;
-};
+}ListQueue;
+
 struct Hasil{
 	infotype temp[100];
 	frequnce freq[100];
@@ -39,5 +44,7 @@ struct encoding{
 };
 
 /*List of Modul */
+
+
 
 #endif

@@ -1,7 +1,13 @@
+<<<<<<< HEAD
 [Editors]
 Order=
 [Editor_0]
 CursorCol=2
 CursorRow=9
+=======
+[Editor_3]
+CursorCol=1
+CursorRow=1
+>>>>>>> taufik
 TopLine=1
 LeftChar=1
