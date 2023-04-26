@@ -8,7 +8,7 @@
 /**** Konstruktor/Kreator List Kosong ****/
 void Create_Tree(Tree *T);
 
-void Create_TNode(int freq, infotype item);
+Taddres Create_TNode(frequnce freq, infotype item);
 
 
 #endif

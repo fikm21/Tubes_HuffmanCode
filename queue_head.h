@@ -8,8 +8,8 @@
 /**** Konstruktor/Kreator List Kosong ****/
 void Create_List(ListQueue *L);
 
-Qaddres Create_Node(TNode *dummy);
+Qaddres Create_Node(Taddres dummy);
 
-void Insrt_Node(ListQueue *L, TNode *dummy);
+void Insrt_Node(ListQueue *L, frequnce freq, infotype info);
 
 #endif

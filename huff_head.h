@@ -21,10 +21,10 @@ typedef struct{
 }Tree;
 
 typedef struct QueueNode {
-	TNode *tn;
+	Taddres treenode;
 	Qaddres next;
 	Qaddres prev;
-}Qnode;
+}QNode;
 
 typedef struct 
 {
