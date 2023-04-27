@@ -46,6 +46,10 @@ struct encoding{
 
 /*List of Modul */
 
+void Proces_Input(char kalimat[100], ListQueue *L);
 
+char* input_tekss();
+
+char* read_file(char *input_file);
 
 #endif

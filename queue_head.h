@@ -12,4 +12,6 @@ Qaddres Create_Node(Taddres dummy);
 
 void Insrt_Node(ListQueue *L, frequnce freq, infotype info);
 
+void Print_Queue(ListQueue L);
+
 #endif
