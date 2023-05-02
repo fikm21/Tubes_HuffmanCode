@@ -17,3 +17,15 @@ Taddres Create_TNode(frequnce freq, infotype item){
     return (newNode);
 
 }
+
+Taddres peek(ListQueue L){
+	if (L.size == 0)
+	{
+		// When stack is empty
+		return NULL;
+	}
+	else
+	{
+		return L.front->treenode;
+	}
+}

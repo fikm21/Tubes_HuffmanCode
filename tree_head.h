@@ -10,5 +10,6 @@ void Create_Tree(Tree *T);
 
 Taddres Create_TNode(frequnce freq, infotype item);
 
+Taddres peek(ListQueue L);
 
 #endif

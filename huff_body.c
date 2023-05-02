@@ -26,7 +26,7 @@ void proces_input(char kalimat[100], ListQueue *L){
         } 
     }
     
-    //Print_Queue(list);
+    //Print_Queue(*L);
 }
 
 char* input_teks(){
@@ -56,4 +56,30 @@ char* read_file(char* input_file) {
 //    printf("\n\t---------------------\n");
 	return text;
     fclose(file);
+}
+
+Taddres Build_Huffman(ListQueue *L){
+	Taddres root;
+	Taddres n1;
+	Taddres n2;
+	
+	while (L->size > 1)
+	{
+		// Get first smallest node  
+		n1 = peek(*L);
+		//Remove a front element
+		Deque(&(*L));
+		// Get second smallest node
+		n2 = peek(*L);
+		// Remove a front element
+		Deque(&(*L));
+		// Make new node using two smallest node
+		//root =  newTreeNode(n1->freq + n2->freq, ' ');
+		// Add new node into priority queue 
+		Insrt_Node(&(*L),n1->freq + n2->freq,' ');
+		// Set left and right child
+		root->LSon = n1;
+		root->RSon = n2;
+	}
+	return root;
 }

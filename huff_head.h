@@ -52,4 +52,6 @@ char* input_tekss();
 
 char* read_file(char *input_file);
 
+Taddres Build_Huffman(ListQueue *L);
+
 #endif

@@ -74,4 +74,29 @@ void Print_Queue(ListQueue L){
 	getchar();
 }
 
+void Deque(ListQueue *L){
+	if (L->size != 0)
+	{	
+		Qaddres temp = L->front;
+		L->front->treenode = NULL;
+		if (L->front == L->rear)
+		{
+			// When queue contains only one node
+			L->rear = NULL;
+			L->front = NULL;
+		}
+		else
+		{
+			L->front = L->front->next;
+			L->front->prev = NULL;
+		}
+		// Change queue size
+		L->size--;
+		free(temp);
+	}
+	else
+	{
+		printf("\n Empty Queue \n");
+	}
+}
 

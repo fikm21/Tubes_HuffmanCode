@@ -43,7 +43,7 @@ int main() {
 //							
 //							printf("\t  Masukkan Text	: ");		
 //							scanf("%[^\n]s",&input);fflush(stdin);	
-							
+
 							proces_input(input,&list);
 							
 							free(input);
@@ -84,6 +84,10 @@ int main() {
 				break;
 			}
 			case 3:{
+				Taddres root;
+				
+				root = Build_Huffman(&list);
+				
 				
 				break;
 			}
