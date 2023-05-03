@@ -19,7 +19,7 @@ Taddres Create_TNode(frequnce freq, infotype item){
 }
 
 Taddres peek(ListQueue L){
-	if (L.size == 0)
+	if (L.front == NULL)
 	{
 		// When stack is empty
 		return NULL;
