@@ -34,11 +34,6 @@ void Insrt_Node(ListQueue *L, frequnce freq, infotype info){
         node->next = L->front;
         L->front->prev = node;
         L->front = node;
-//    }else if(L->front->treenode->freq <= freq){
-//        // Add node at last position
-//        node->prev = L->rear;
-//        L->rear->next = node;
-//        L->rear = node;
     }else if(L->front->treenode->freq < freq){
         // Add node at last position
         node->prev = L->rear;
@@ -48,6 +43,41 @@ void Insrt_Node(ListQueue *L, frequnce freq, infotype info){
         Qaddres temp = L->front;
         // Find the location of inserting priority node
         while(temp->treenode->freq <= freq){
+            temp = temp->next;
+        }
+        // Add node
+        node->next = temp;
+        node->prev = temp->prev;
+        temp->prev = node;
+        if(node->prev != NULL){
+            node->prev->next = node;
+        }
+    }
+    L->size += 1;
+}
+
+void enque(ListQueue *L,Taddres T){
+	//struct QNode *node = (struct QNode *) malloc(sizeof(struct QNode));
+	Qaddres node = NULL;
+	
+	node = Create_Node(T);
+	if(L->front == NULL){
+        L->front = node;
+        L->rear = node;
+    }else if(L->front->treenode->freq > T->freq){
+        // Add node at beginning position
+        node->next = L->front;
+        L->front->prev = node;
+        L->front = node;
+    }else if(L->front->treenode->freq < T->freq){
+        // Add node at last position
+        node->prev = L->rear;
+        L->rear->next = node;
+        L->rear = node;
+    }else{
+        Qaddres temp = L->front;
+        // Find the location of inserting priority node
+        while(temp->treenode->freq <= T->freq){
             temp = temp->next;
         }
         // Add node
@@ -99,4 +129,3 @@ void Deque(ListQueue *L){
 		printf("\n Empty Queue \n");
 	}
 }
-
