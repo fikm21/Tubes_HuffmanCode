@@ -7,8 +7,9 @@
 
 int main() {
 	int pil;
+	int max_tree,max_char;
 	ListQueue list;
-	
+	encoding encode[255];
 	Create_List(&list);
 	
 	do{		
@@ -40,11 +41,15 @@ int main() {
 					switch(pil_menu){
 						case 1:{
 							char* input = input_teks() ;
+							max_char = strlen(input);
 //							
 //							printf("\t  Masukkan Text	: ");		
 //							scanf("%[^\n]s",&input);fflush(stdin);	
-
+//							printf("\t  Masukkan Text	: %s",input);
+							printf("Press any key to continue...");
+							getchar();
 							proces_input(input,&list);
+							//proces_input(input,&list);
 							
 							free(input);
 							pil_menu = 3;
@@ -61,7 +66,7 @@ int main() {
 							
 							printf("Press any key to continue...");
 							getchar();
-							
+							max_char = strlen(text);
 							proces_input(text,&list);
 							free(text);
 							
@@ -84,11 +89,23 @@ int main() {
 				break;
 			}
 			case 3:{
-				Taddres root;
-				
-				root = Build_Huffman(&list);
-				
-				
+				//Taddres root;
+				char result[100];
+				max_tree = ceil(log2(max_char));
+				//root = Build_Huffman(&list);
+				printf("\n\n\t Tree Huffman Code\n");
+				Taddres root = Build_Huffman(&list);
+				// Contoh tree Huffman sederhana dengan 3 node
+
+			    if(root == NULL){
+			    	printf("root kosong");
+				}else{
+					PrintTree(root, 0);
+				}
+				printf("\n\n\t Huffman Code\n");
+				PrintHuffmanHelper(root, max_tree);
+				printf("\nPress any key to continue...");
+							getchar();
 				break;
 			}
 			case 4:{
