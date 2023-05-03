@@ -16,4 +16,6 @@ void Print_Queue(ListQueue L);
 
 void Deque(ListQueue *L);
 
+void enque(ListQueue *L,Taddres T);
+
 #endif
