@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <math.h>
 
 /*Struktur Data */
 typedef char infotype;
@@ -15,6 +16,7 @@ typedef struct TbTree{
 	infotype info;
 	Taddres LSon;
 	Taddres RSon;
+	Taddres parent;
 }TNode;
 
 typedef struct{
@@ -34,15 +36,15 @@ typedef struct
 	int size;
 }ListQueue;
 
-struct Hasil{
+typedef struct{
 	infotype temp[100];
 	frequnce freq[100];
-};
+}Hasil;
 
-struct encoding{
+typedef struct{
 	infotype info;
 	infotype value[255];
-};
+}encoding;
 
 /*List of Modul */
 
@@ -53,5 +55,11 @@ char* input_tekss();
 char* read_file(char *input_file);
 
 Taddres Build_Huffman(ListQueue *L);
+
+void PrintHuffman(Taddres node, char result[], int n, encoding tamp[],int x);
+
+void PrintHuffmanHelper(Taddres root,int max_tree);
+
+
 
 #endif
