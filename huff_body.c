@@ -2,32 +2,24 @@
 #include "queue_head.h"
 #include "tree_head.h"
 
-void proces_input(char kalimat[100], ListQueue *L){
-//	ListQueue list;
-//	
-//	Create_List(&list);
-	
-	int freq[26] = {0};
+void proces_input(char kalimat[255], ListQueue *L) {
+    int freq[256] = {0}; // index array diperbesar menjadi 256 agar dapat menampung seluruh karakter pada ASCII table
     int i;
     for (i = 0; kalimat[i] != '\0'; i++) {
-        char c = tolower(kalimat[i]); //NAH INI TEH BUAT HURUF KECIL DI CEK DARI A SAMPAI Z TERNYATA NANYA KE GPT BISA GUYS DETEKSI GITU BERAPA JUMLAH HURUF A-Z ITU KALO ADA YA MASUKIN
-        if (c >= 'a' && c <= 'z') {
-            freq[c - 'a']++;
-        }else if (kalimat[i] >= 'A' && kalimat[i] <= 'Z') //KALO INI BUAT HURUF BESAR 
-		 {
-            freq[kalimat[i] - 'A']++;
+        freq[kalimat[i]]++; // hitung frekuensi seluruh karakter pada kalimat
+    }
+    
+    for (i = 0; i < 256; i++) { // iterasi seluruh karakter pada ASCII table
+        if (freq[i] > 0) {
+            char info = i;
+            if (isspace(info)) { // jika karakter kosong ditemukan
+                info = ' '; // ubah kembali menjadi karakter spasi
+            }
+            Insrt_Node(&(*L), freq[i], info);
         }
     }
-    
-    for (i = 0; i < 26; i++) {
-        if (freq[i] > 0) {
-            char info = i + 'a';         
-            Insrt_Node(&(*L),freq[i],info);
-        } 
-    }
-    
-    //Print_Queue(*L);
 }
+
 
 char* input_teks(){
 	char* input = (char*) malloc(100 * sizeof(char));
@@ -126,5 +118,4 @@ void PrintTree(Taddres root, int level) {
     printf("%c:%d\n", root->info, root->freq);
     PrintTree(root->LSon, level + 1);
 }
-
 
