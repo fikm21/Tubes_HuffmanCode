@@ -2,21 +2,18 @@
 #include "queue_head.h"
 #include "tree_head.h"
 
-void proces_input(char kalimat[255], ListQueue *L) {
-    int freq[256] = {0}; // index array diperbesar menjadi 256 agar dapat menampung seluruh karakter pada ASCII table
+void proces_input(char kalimat[100], ListQueue *L){
+    int freq[128] = {0}; //  agar dapat menampung semua karakter ASCII
     int i;
     for (i = 0; kalimat[i] != '\0'; i++) {
-        freq[kalimat[i]]++; // hitung frekuensi seluruh karakter pada kalimat
+        freq[(int)kalimat[i]]++; // Tambahkan karakter ke array frekuensi
     }
     
-    for (i = 0; i < 256; i++) { // iterasi seluruh karakter pada ASCII table
+    for (i = 0; i < 128; i++) { // Melakukan iterasi dari nilai ASCII 0 hingga 127
         if (freq[i] > 0) {
-            char info = i;
-            if (isspace(info)) { // jika karakter kosong ditemukan
-                info = ' '; // ubah kembali menjadi karakter spasi
-            }
-            Insrt_Node(&(*L), freq[i], info);
-        }
+            char info = i; // Simpan nilai ASCII ke dalam variabel info
+            Insrt_Node(&(*L),freq[i],info);
+        } 
     }
 }
 
