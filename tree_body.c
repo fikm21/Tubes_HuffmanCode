@@ -13,7 +13,11 @@ Taddres Create_TNode(frequnce freq, infotype item){
     newNode->LSon = NULL;
     newNode->RSon = NULL;
     newNode->freq = freq;
-    newNode->info = item;
+    if(isspace(item)){
+    	newNode->info = ' ';
+	}else{
+		newNode->info = item;
+	}
     return (newNode);
 
 }
