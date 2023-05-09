@@ -127,3 +127,20 @@ void PrintTree(Taddres root, int level) {
     PrintTree(root->LSon, level + 1);
 }
 
+void compress_file(Taddres root, char* input_text, int max_char, int max_tree) {
+    char result[max_tree]; // inisialisasi array result
+	char temp[max_tree]; // inisialisasi array tamp
+	char* hasil_encode;
+	FILE* fp = fopen("compressed.txt", "w");
+    
+	int i,j;
+    for( i=0;i<max_char;i++){
+		encode(root,result,0,input_text, i, temp,&hasil_encode);
+		fprintf(fp, "%s", hasil_encode);
+	}
+	fclose(fp);
+	
+    
+    
+
+
