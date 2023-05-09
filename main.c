@@ -136,7 +136,10 @@ int main() {
 				break;
 			}
 			case 5:{
-				
+				compress_file(root,input_text, max_char, max_tree);
+				printf("\nSuccses to Export \nPress any key to continue...");
+				getchar();
+
 
 				break;
 			}
