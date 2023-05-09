@@ -105,12 +105,22 @@ void PrintTree(Taddres root, int level) {
     }
     PrintTree(root->RSon, level + 1);
     int i;
-    for ( i = 0; i < level; i++) {
+    for (i = 0; i < level; i++) {
         printf("    ");
     }
-    printf("%c:%d\n", root->info, root->freq);
+    
+    if (root->LSon != NULL && root->RSon != NULL) {
+        printf("%d\n", root->freq);
+    } else {
+        printf("%c:%d\n", root->info, root->freq);
+    }
     PrintTree(root->LSon, level + 1);
 }
+
+
+
+
+
 
 
 void encode(Taddres node, char* result, int level , char* str, int i, char* temp, char** code){
