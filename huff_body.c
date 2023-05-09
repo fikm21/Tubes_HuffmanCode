@@ -2,8 +2,7 @@
 #include "queue_head.h"
 #include "tree_head.h"
 
-void proces_input(char* kalimat, ListQueue *L){
-	Taddres Tnode;
+void proces_input(char kalimat[1000], ListQueue *L){
     int freq[128] = {0}; //  agar dapat menampung semua karakter ASCII
     int i;
     for (i = 0; kalimat[i] != '\0'; i++) {
@@ -13,24 +12,27 @@ void proces_input(char* kalimat, ListQueue *L){
     for (i = 0; i < 128; i++) { // Melakukan iterasi dari nilai ASCII 0 hingga 127
         if (freq[i] > 0) {
             char info = i; // Simpan nilai ASCII ke dalam variabel info
-            Tnode = Create_TNode(freq[i],info);
-            enque(&(*L),Tnode);
+            Insrt_Node(&(*L),freq[i],info);
         } 
     }
 }
 
 
 char* input_teks(){
-	char* input = (char*) malloc(100 * sizeof(char));
-	printf("\t  Masukkan Text	: ");
-	//getchar();	
-		
-	scanf("%[^\n]%*c",input);
-	return input;
+    char* input = (char*) malloc(1001 * sizeof(char)); // tambahkan 1 byte untuk null terminator
+    if (input == NULL) {
+        printf("Gagal mengalokasikan memori.\n");
+        exit(1);
+    }
+    printf("\t  Masukkan Text : ");
+    fgets(input, 1001, stdin); // baca string input dengan fungsi fgets
+    input[strcspn(input, "\n")] = '\0'; // hapus karakter newline pada akhir string
+    return input;
 }
 
+
 char* read_file(char* input_file) {
-    char* text = (char*) malloc(1 * sizeof(char));
+    char* text = (char*) malloc(1000 * sizeof(char));
     FILE *file;
     file = fopen(input_file, "r");
 
@@ -39,8 +41,8 @@ char* read_file(char* input_file) {
         return;
     }
 	fscanf(file, "%[^\n]s", text);
-	return text;
     fclose(file);
+	return text;
 }
 
 Taddres Build_Huffman(ListQueue *L){
@@ -68,16 +70,13 @@ Taddres Build_Huffman(ListQueue *L){
 		//Insrt_Node(&(*L), root->freq, root->info);
     }
     return root;
-    free(root);
-    free(n1);
-    free(n2);
 }
 
 
 
 // Display Huffman code
 
-void PrintHuffman(Taddres node, char* result, int n, encoding tamp[],int x)
+void PrintHuffman(Taddres node, char result[], int n, encoding tamp[],int x)
 {
     if (node == NULL)
     {
@@ -99,6 +98,17 @@ void PrintHuffman(Taddres node, char* result, int n, encoding tamp[],int x)
 }
 
 
+void PrintHuffmanHelper(Taddres root,int max_tree){
+	
+	
+    char result[max_tree]; // inisialisasi array result
+    encoding tamp[max_tree]; // inisialisasi array tamp
+    int n = 0, x = 0; // inisialisasi variabel n dan x
+
+    PrintHuffman(root, result, n, tamp, x); // panggil fungsi rekursif helper
+
+}
+
 void PrintTree(Taddres root, int level) {
     if (root == NULL) {
         return;
@@ -115,48 +125,5 @@ void PrintTree(Taddres root, int level) {
         printf("%c:%d\n", root->info, root->freq);
     }
     PrintTree(root->LSon, level + 1);
-}
-
-
-
-
-
-
-
-void encode(Taddres node, char* result, int level , char* str, int i, char* temp, char** code){
-	if (node == NULL) {
-		return;
-	}
-	if (node->LSon == NULL && node->RSon == NULL) {
-		if(str[i] == node->info) {
-			result[level] = '\0';
-			strcat(temp,result);
-			*code = strdup(result); // duplikasi string agar hasil encode bisa digunakan kembali
-			return ;
-		}
-	}
-	result[level] = '0';
-	encode(node->LSon, result, level + 1, str, i, temp, code);
-	result[level] = '1';
-	encode(node->RSon, result, level + 1, str, i, temp, code);
-}
-
-
-
-void decode(Taddres node,int n, char* temp, char* text){
-	int j;
-	if (node == NULL)
-	{
-		return;
-	}
-		for( j = 0;j<=1;j++){
-			if(temp[j] == '0'){
-				node = node->LSon;
-			}else{
-				node = node->RSon;
-			}
-			j++;
-		}
-	printf("%s",text);	
 }
 
