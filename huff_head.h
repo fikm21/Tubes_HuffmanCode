@@ -37,18 +37,13 @@ typedef struct
 }ListQueue;
 
 typedef struct{
-	infotype temp[100];
-	frequnce freq[100];
-}Hasil;
-
-typedef struct{
 	infotype info;
 	infotype value[255];
 }encoding;
 
 /*List of Modul */
 
-void Proces_Input(char kalimat[100], ListQueue *L);
+void Proces_Input(char* kalimat, ListQueue *L);
 
 char* input_tekss();
 
@@ -56,10 +51,11 @@ char* read_file(char *input_file);
 
 Taddres Build_Huffman(ListQueue *L);
 
-void PrintHuffman(Taddres node, char result[], int n, encoding tamp[],int x);
+void PrintHuffman(Taddres node, char* result, int n, encoding tamp[],int x);
 
-void PrintHuffmanHelper(Taddres root,int max_tree);
+void PrintTree(Taddres root, int level);
 
+void encode(Taddres node, char* result, int level , char* str, int i, char* temp, char** code);
 
 
 #endif
