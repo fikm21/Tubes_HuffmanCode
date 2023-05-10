@@ -13,7 +13,9 @@ int main() {
 		int max_tree,max_char;
 		int n = 0, x = 0;
 		ListQueue list,listTemp;
-		//encoding encode[255];
+		char temp[255];
+		char result[255]; // inisialisasi array result
+		
 		Create_List(&list);
 		Create_List(&listTemp);
 		Taddres root;
@@ -81,6 +83,7 @@ int main() {
 						}
 					}			
 				}while(pil_menu != 3);
+				
 				root = Build_Huffman(&list);
 				max_tree = ceil(log2(max_char));
 				break;
@@ -94,8 +97,6 @@ int main() {
 			case 3:{
 	
 				printf("\n\n\t Tree Huffman Code\n");
-				
-			
 
 			    if(root == NULL){
 			    	printf("root kosong");
@@ -104,50 +105,63 @@ int main() {
 				}
 				
 				printf("\n\n\t Huffman Code\n");
-				char result[max_tree]; // inisialisasi array result
-			    encoding tamp[max_tree]; // inisialisasi array tamp
+				char result_code[max_tree]; // inisialisasi array result
+			    encoding code[max_tree]; // inisialisasi array tamp
 			    
 			
-			    PrintHuffman(root, result, n, tamp, x); // panggil fungsi rekursif helper
+			    PrintHuffman(root, result_code, n, code, x); // panggil fungsi rekursif helper
 				printf("\nPress any key to continue...");
 				getchar();
 				break;
 			}
 			case 4:{
-				char result[max_tree]; // inisialisasi array result
-			    encoding code[max_tree]; // inisialisasi array tamp
-				char temp[max_tree];
+			    FILE* fp = fopen("compressed.txt", "w");	
 				int i;
+				encoding code[max_tree]; // inisialisasi array tamp
+				
 				printf("\n\n\t Huffman Code\n");
 			
 			    PrintHuffman(root, result, n, code, x); // panggil fungsi rekursif helper
-				//printf("text : %s",input_text);
+				printf("\n\n\t Encode String \n\t ");
+				char* code_binner = malloc(max_char * sizeof(char));
+				for( i=0;i<max_char;i++){
+				
+					encode(root,result,0,input_text, i, temp,&code_binner);
+					
+					printf("%s" ,code_binner);
+					
+					fprintf(fp, "%s", code_binner);
+		
+					strcpy(code_binner, "");
+				}
+				
+
+				export_file(input_text);
+				
+				printf("\n\nSuccses to Export \nPress any key to continue...");
+				fclose(fp);
+				getchar();
+				
+				break;
+			}
+			case 5:{
+				FILE* fp = fopen("compressed.txt", "r");
+				int i;		
+			    char bit;
+				
 				printf("\n\n\t Encode String \n\t ");
 				
 				for( i=0;i<max_char;i++){
 					encode(root,result,0,input_text, i, temp,&hasil_encode);
 					printf("%s" ,hasil_encode);
 				}
-				
-				export_file(input_text);
-				compress_file(root,input_text, max_char, max_tree);
-				printf("\n\nSuccses to Export \nPress any key to continue...");
-				
-				getchar();
-				break;
-			}
-			case 5:{
-				 FILE* fp = fopen("compressed.bin", "rb");
-
-				int i;
-				
 			   
 				if (fp == NULL) {
 				    printf("File tidak dapat dibuka.\n");
 				}
 				printf("\n\t Decode to String \n\t ");
 				
-				 char bit;
+				 
 				while ((bit = decode(fp, root)) != EOF) {
 				    putchar(bit);
 				}

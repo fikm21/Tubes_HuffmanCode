@@ -78,7 +78,7 @@ Taddres Build_Huffman(ListQueue *L){
 
 // Display Huffman code
 
-void PrintHuffman(Taddres node, char result[], int n, encoding tamp[],int x)
+void PrintHuffman(Taddres node, char* result, int n, encoding tamp[],int x)
 {
     if (node == NULL)
     {
@@ -151,31 +151,30 @@ void encode(Taddres node, char* result, int level , char* str, int i, char* temp
 
 char decode(FILE *f, Taddres root) {
     Taddres node = root;
-    char bit;
-    while (node->LSon || node->RSon) {
-        bit = fgetc(f);
-        if (bit == EOF) return EOF;
-        if (bit == '0') node = node->LSon;
-        else if (bit == '1') node = node->RSon;
-    }
-    return node->info;
-}
-
-
-
-void compress_file(Taddres root, char* input_text, int max_char, int max_tree) {
-    char result[max_tree]; // inisialisasi array result
-	char temp[max_tree]; // inisialisasi array tamp
-	char* hasil_encode;
-	FILE* fp = fopen("compressed.bin", "wb");
+    char bit, result_char;
     
-	int i,j;
-    for( i=0;i<max_char;i++){
-		encode(root,result,0,input_text, i, temp,&hasil_encode);
-		fprintf(fp, "%s", hasil_encode);
-	}
-	fclose(fp);
+    if (node->LSon == NULL && node->RSon == NULL) {
+        if (isspace(node->info)) {
+            result_char = ' ';
+        } else {
+            result_char = node->info;
+        }
+        return result_char;
+    }
+    
+    bit = fgetc(f);
+    if (bit == EOF) {
+        return EOF;
+    } 
+    if (bit == '0') {
+        return decode(f, node->LSon);
+    } else if (bit == '1') {
+        return decode(f, node->RSon);
+    }
+    
+    return EOF;
 }
+
 
 void export_file( char* input_text) {
     
