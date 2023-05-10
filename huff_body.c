@@ -3,6 +3,7 @@
 #include "tree_head.h"
 
 void proces_input(char kalimat[1000], ListQueue *L){
+	Taddres P;
     int freq[128] = {0}; //  agar dapat menampung semua karakter ASCII
     int i;
     for (i = 0; kalimat[i] != '\0'; i++) {
@@ -12,7 +13,8 @@ void proces_input(char kalimat[1000], ListQueue *L){
     for (i = 0; i < 128; i++) { // Melakukan iterasi dari nilai ASCII 0 hingga 127
         if (freq[i] > 0) {
             char info = i; // Simpan nilai ASCII ke dalam variabel info
-            Insrt_Node(&(*L),freq[i],info);
+            P = Create_TNode(freq[i],info);
+            enque(&(*L),P);
         } 
     }
 }
@@ -127,6 +129,43 @@ void PrintTree(Taddres root, int level) {
     PrintTree(root->LSon, level + 1);
 }
 
+void encode(Taddres node, char* result, int level , char* str, int i, char* temp, char** code){
+	if (node == NULL) {
+		return;
+	}
+	if (node->LSon == NULL && node->RSon == NULL) {
+		if(str[i] == node->info) {
+			result[level] = '\0';
+			strcat(temp,result);
+			*code = strdup(result); // duplikasi string agar hasil encode bisa digunakan kembali
+			return ;
+		}
+	}
+	result[level] = '0';
+	encode(node->LSon, result, level + 1, str, i, temp, code);
+	result[level] = '1';
+	encode(node->RSon, result, level + 1, str, i, temp, code);
+}
+
+
+
+void decode(Taddres node,int n, char* temp, char* text){
+	int j;
+	if (node == NULL)
+	{
+		return;
+	}
+		for( j = 0;j<=1;j++){
+			if(temp[j] == '0'){
+				node = node->LSon;
+			}else{
+				node = node->RSon;
+			}
+			j++;
+		}
+	printf("%s",text);	
+}
+
 void compress_file(Taddres root, char* input_text, int max_char, int max_tree) {
     char result[max_tree]; // inisialisasi array result
 	char temp[max_tree]; // inisialisasi array tamp
@@ -143,5 +182,4 @@ void compress_file(Taddres root, char* input_text, int max_char, int max_tree) {
 	
     
     
-
 
