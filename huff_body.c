@@ -100,16 +100,6 @@ void PrintHuffman(Taddres node, char* result, int n, encoding tamp[],int x)
 }
 
 
-void PrintHuffmanHelper(Taddres root,int max_tree){
-	
-	
-    char result[max_tree]; // inisialisasi array result
-    encoding tamp[max_tree]; // inisialisasi array tamp
-    int n = 0, x = 0; // inisialisasi variabel n dan x
-
-    PrintHuffman(root, result, n, tamp, x); // panggil fungsi rekursif helper
-
-}
 
 void PrintTree(Taddres root, int level) {
     if (root == NULL) {

@@ -59,6 +59,6 @@ void encode(Taddres node, char* result, int level , char* str, int i, char* temp
 
 char decode(FILE *f, Taddres root);
 
-void compress_file(Taddres root, char* input_text, int max_char, int max_tree);
+void export_file( char* input_text);
 
 #endif
