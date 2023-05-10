@@ -139,6 +139,7 @@ void compress_file(Taddres root, char* input_text, int max_char, int max_tree) {
 		fprintf(fp, "%s", hasil_encode);
 	}
 	fclose(fp);
+}
 	
     
     
