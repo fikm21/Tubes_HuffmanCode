@@ -149,34 +149,39 @@ void encode(Taddres node, char* result, int level , char* str, int i, char* temp
 
 
 
-void decode(Taddres node,int n, char* temp, char* text){
-	int j;
-	if (node == NULL)
-	{
-		return;
-	}
-		for( j = 0;j<=1;j++){
-			if(temp[j] == '0'){
-				node = node->LSon;
-			}else{
-				node = node->RSon;
-			}
-			j++;
-		}
-	printf("%s",text);	
+char decode(FILE *f, Taddres root) {
+    Taddres node = root;
+    char bit;
+    while (node->LSon || node->RSon) {
+        bit = fgetc(f);
+        if (bit == EOF) return EOF;
+        if (bit == '0') node = node->LSon;
+        else if (bit == '1') node = node->RSon;
+    }
+    return node->info;
 }
+
+
 
 void compress_file(Taddres root, char* input_text, int max_char, int max_tree) {
     char result[max_tree]; // inisialisasi array result
 	char temp[max_tree]; // inisialisasi array tamp
 	char* hasil_encode;
-	FILE* fp = fopen("compressed.txt", "w");
+	FILE* fp = fopen("compressed.bin", "wb");
     
 	int i,j;
     for( i=0;i<max_char;i++){
 		encode(root,result,0,input_text, i, temp,&hasil_encode);
 		fprintf(fp, "%s", hasil_encode);
 	}
+	fclose(fp);
+}
+
+void export_file( char* input_text) {
+    
+	FILE* fp = fopen("export_file.txt", "w");
+    fprintf(fp, "%s", input_text);
+
 	fclose(fp);
 }
 	

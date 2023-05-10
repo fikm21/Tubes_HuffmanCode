@@ -7,17 +7,19 @@
 
 int main() {
 	int pil;
-	int max_tree,max_char;
-	int n = 0, x = 0;
-	ListQueue list,listTemp;
-	//encoding encode[255];
-	Create_List(&list);
-	Create_List(&listTemp);
-	Taddres root;
-	char* input_text;
-	char* hasil_encode = NULL;
+	
 	
 	do{		
+		int max_tree,max_char;
+		int n = 0, x = 0;
+		ListQueue list,listTemp;
+		//encoding encode[255];
+		Create_List(&list);
+		Create_List(&listTemp);
+		Taddres root;
+		char* input_text;
+		char* hasil_encode = NULL;
+		
 		system("cls");
 		printf("\n");
 		printf("\t		Huffman Code 		\n");
@@ -25,8 +27,8 @@ int main() {
 		printf("\t 1. Input\n");
 		printf("\t 2. Show Queue\n");
 		printf("\t 3. Show Tree & Huffman\n");
-		printf("\t 4. Encode & Decode\n");
-		printf("\t 5. Export to File\n");
+		printf("\t 4. Encode & Export\n");
+		printf("\t 5. Decode from File\n");
 		printf("\t 6. Exit Program\n");
 		printf("\t\n");
 		
@@ -93,7 +95,7 @@ int main() {
 	
 				printf("\n\n\t Tree Huffman Code\n");
 				
-				// Contoh tree Huffman sederhana dengan 3 node
+			
 
 			    if(root == NULL){
 			    	printf("root kosong");
@@ -127,17 +129,30 @@ int main() {
 					printf("%s" ,hasil_encode);
 				}
 				
+				export_file(input_text);
+				compress_file(root,input_text, max_char, max_tree);
+				printf("\n\nSuccses to Export \nPress any key to continue...");
 				
-				
-				printf("\n\n\t Decode to String \n\t ");	
-				decode(root,0,temp, input_text);
-				printf("\nPress any key to continue...");
 				getchar();
 				break;
 			}
 			case 5:{
-				compress_file(root,input_text, max_char, max_tree);
-				printf("\nSuccses to Export \nPress any key to continue...");
+				 FILE* fp = fopen("compressed.bin", "rb");
+
+				int i;
+				
+			   
+				if (fp == NULL) {
+				    printf("File tidak dapat dibuka.\n");
+				}
+				printf("\n\t Decode to String \n\t ");
+				
+				 char bit;
+				while ((bit = decode(fp, root)) != EOF) {
+				    putchar(bit);
+				}
+				
+				printf("\n\nPress any key to continue...");
 				getchar();
 
 
