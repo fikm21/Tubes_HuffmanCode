@@ -11,7 +11,7 @@ int main() {
 	
 	do{		
 		int max_tree,max_char;
-		int n = 0, x = 0;
+		int n = 0;
 		ListQueue list,listTemp;
 		char temp[255];
 		char result[255]; // inisialisasi array result
@@ -109,7 +109,7 @@ int main() {
 			    encoding code[max_tree]; // inisialisasi array tamp
 			    
 			
-			    PrintHuffman(root, result_code, n, code, x); // panggil fungsi rekursif helper
+			    PrintHuffman(root, result_code,n ,code); // panggil fungsi rekursif helper
 				printf("\nPress any key to continue...");
 				getchar();
 				break;
@@ -121,7 +121,7 @@ int main() {
 				
 				printf("\n\n\t Huffman Code\n");
 			
-			    PrintHuffman(root, result, n, code, x); // panggil fungsi rekursif helper
+			    PrintHuffman(root, result,n ,code); // panggil fungsi rekursif helper
 				printf("\n\n\t Encode String \n\t ");
 				char* code_binner = malloc(max_char * sizeof(char));
 				for( i=0;i<max_char;i++){

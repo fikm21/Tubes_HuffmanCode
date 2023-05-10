@@ -78,8 +78,10 @@ Taddres Build_Huffman(ListQueue *L){
 
 // Display Huffman code
 
-void PrintHuffman(Taddres node, char* result, int n, encoding tamp[],int x)
+void PrintHuffman(Taddres node, char* result, int n,encoding tamp[])
 {
+	
+	int x = 0;
     if (node == NULL)
     {
         return;
@@ -94,9 +96,9 @@ void PrintHuffman(Taddres node, char* result, int n, encoding tamp[],int x)
         return;
     }
     result[n] = '0';
-    PrintHuffman(node->LSon, result, n + 1, tamp, x);
+    PrintHuffman(node->LSon, result, n + 1, tamp);
     result[n] = '1';
-    PrintHuffman(node->RSon, result, n + 1, tamp, x);
+    PrintHuffman(node->RSon, result, n + 1, tamp);
 }
 
 

@@ -51,7 +51,7 @@ char* read_file(char *input_file);
 
 Taddres Build_Huffman(ListQueue *L);
 
-void PrintHuffman(Taddres node, char* result, int n, encoding tamp[],int x);
+void PrintHuffman(Taddres node, char* result,int n ,encoding tamp[]);
 
 void PrintTree(Taddres root, int level);
 
