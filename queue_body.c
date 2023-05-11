@@ -19,40 +19,45 @@ Qaddres Create_Node(Taddres dummy){
 }
 
 
-void enque(ListQueue *L,Taddres T){
-	//struct QNode *node = (struct QNode *) malloc(sizeof(struct QNode));
-	Qaddres node = NULL;
-	
-	node = Create_Node(T);
-	if(L->front == NULL){
+void enque(ListQueue *L, Taddres T) {
+    Qaddres node = NULL;
+    node = Create_Node(T);
+    if (L->front == NULL) {
         L->front = node;
         L->rear = node;
-    }else if(L->front->treenode->freq > T->freq){
+    } else if (L->front->treenode->freq > T->freq) {
         // Add node at beginning position
         node->next = L->front;
         L->front->prev = node;
         L->front = node;
-    }else if(L->front->treenode->freq < T->freq){
+    } else if (L->front->treenode->freq < T->freq) {
         // Add node at last position
         node->prev = L->rear;
         L->rear->next = node;
         L->rear = node;
-    }else{
+    } else {
         Qaddres temp = L->front;
         // Find the location of inserting priority node
-        while(temp->treenode->freq <= T->freq){
+        while (temp != NULL && temp->treenode->freq <= T->freq) {
             temp = temp->next;
         }
         // Add node
         node->next = temp;
-        node->prev = temp->prev;
-        temp->prev = node;
-        if(node->prev != NULL){
-            node->prev->next = node;
+        if (temp != NULL) {
+            node->prev = temp->prev;
+            temp->prev = node;
+            if (node->prev != NULL) {
+                node->prev->next = node;
+            }
+        } else {
+            node->prev = L->rear;
+            L->rear->next = node;
+            L->rear = node;
         }
     }
     L->size += 1;
 }
+
 
 void Print_Queue(ListQueue L){
 	Qaddres P;
