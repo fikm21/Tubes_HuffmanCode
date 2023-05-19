@@ -41,6 +41,12 @@ typedef struct{
 	infotype value[255];
 }encoding;
 
+typedef struct {
+    unsigned char* buffer;  // Buffer untuk menyimpan bitstream
+    int buffer_size;        // Ukuran buffer dalam byte
+    int bit_index;          // Indeks bit saat ini dalam buffer
+} Bitstream;
+
 /*List of Modul */
 
 void Proces_Input(char* kalimat, ListQueue *L);
@@ -60,5 +66,11 @@ void encode(Taddres node, char* result, int level , char* str, int i, char* temp
 char decode(FILE *f, Taddres root);
 
 void export_file( char* input_text);
+
+void init_bitstream(Bitstream* bitstream);
+
+void write_bit(Bitstream* bitstream, int bit);
+
+void save_bitstream(Bitstream* bitstream, const char* filename;
 
 #endif

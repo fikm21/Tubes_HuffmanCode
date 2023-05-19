@@ -167,7 +167,6 @@ char decode(FILE *f, Taddres root) {
     return EOF;
 }
 
-
 void export_file( char* input_text) {
     
 	FILE* fp = fopen("export_file.txt", "w");
@@ -175,7 +174,97 @@ void export_file( char* input_text) {
 
 	fclose(fp);
 }
-	
+
+// Membaca bitstream dari file
+Bitstream read_bitstream(const char* filename) {
+    FILE* file = fopen(filename, "rb");
+    if (file == NULL) {
+        printf("Gagal membuka file\n");
+        exit(EXIT_FAILURE);
+    }
+
+    fseek(file, 0, SEEK_END);
+    long file_size = ftell(file);
+    rewind(file);
+
+    Bitstream bitstream;
+    bitstream.buffer_size = file_size;
+    bitstream.buffer = (unsigned char*)malloc(file_size * sizeof(unsigned char));
+    fread(bitstream.buffer, sizeof(unsigned char), file_size, file);
+    fclose(file);
+
+    return bitstream;
+}
+
+void decompress(const char* filename, Taddres root) {
+    Bitstream bitstream = read_bitstream(filename);
+    int byte_count = (bitstream.buffer_size + 7) / 8; // Jumlah byte dalam bitstream
+    int i;
+    Taddres node = root;
+    for (i = 0; i < byte_count; i++) { // Mengiterasi melalui byte-bitstream
+        unsigned char byte = bitstream.buffer[i];
+        int j;
+        for (j = 0; j < 8; j++) { // Mengiterasi melalui setiap bit dalam byte
+            int bit = (byte >> j) & 1;
+
+            if (bit == 0) {
+                node = node->LSon;
+            } else if (bit == 1) {
+                node = node->RSon;
+            }
+
+            if (node->LSon == NULL && node->RSon == NULL) {
+                putchar(node->info);
+                node = root;
+            }
+        }
+    }
+
+    free(bitstream.buffer);
+}
+
+
+
+
+
+
+// Inisialisasi bitstream
+void init_bitstream(Bitstream* bitstream) {
+    bitstream->buffer = (unsigned char*)malloc(sizeof(unsigned char));
+    bitstream->buffer_size = 1;
+    bitstream->bit_index = 0;
+    bitstream->buffer[0] = 0;
+}
+
+// Tambahkan bit ke bitstream
+void write_bit(Bitstream* bitstream, int bit) {
+    if (bitstream->bit_index >= (bitstream->buffer_size * 8)) {
+        bitstream->buffer_size++;
+        bitstream->buffer = (unsigned char*)realloc(bitstream->buffer, bitstream->buffer_size);
+        bitstream->buffer[bitstream->buffer_size - 1] = 0;
+    }
+    if (bit)
+        bitstream->buffer[bitstream->bit_index / 8] |= (1 << (bitstream->bit_index % 8));
+    bitstream->bit_index++;
+}
+
+// Simpan bitstream ke file
+void save_bitstream(Bitstream* bitstream, const char* filename) {
+    FILE* file = fopen(filename, "wb");
+    if (file == NULL) {
+        printf("Gagal membuka file\n");
+        exit(EXIT_FAILURE);
+    }
+
+    // Hitung jumlah byte yang sebenarnya digunakan oleh bitstream
+    size_t byte_count = (bitstream->bit_index + 7) / 8;
+
+    // Tulis bitstream ke file
+    fwrite(bitstream->buffer, sizeof(unsigned char), byte_count, file);
+
+    fclose(file);
+}
+
     
     
 

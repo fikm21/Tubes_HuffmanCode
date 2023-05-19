@@ -118,7 +118,9 @@ int main() {
 			    FILE* fp = fopen("compressed.txt", "w");	
 				int i;
 				encoding code[max_tree]; // inisialisasi array tamp
-				
+				Bitstream bitstream;
+    			init_bitstream(&bitstream);
+    			
 				printf("\n\n\t Huffman Code\n");
 			
 			    PrintHuffman(root, result,n ,code); // panggil fungsi rekursif helper
@@ -127,7 +129,7 @@ int main() {
 				for( i=0;i<max_char;i++){
 				
 					encode(root,result,0,input_text, i, temp,&code_binner);
-					
+					write_bit(&bitstream, code_binner);
 					printf("%s" ,code_binner);
 					
 					fprintf(fp, "%s", code_binner);
@@ -137,6 +139,12 @@ int main() {
 				
 
 				export_file(input_text);
+				
+				 // Simpan bitstream ke file
+			    save_bitstream(&bitstream, "output.bin");
+			
+			    // Dealokasi memori
+			    free(bitstream.buffer);
 				
 				printf("\n\nSuccses to Export \nPress any key to continue...");
 				fclose(fp);
@@ -161,10 +169,16 @@ int main() {
 				}
 				printf("\n\t Decode to String \n\t ");
 				
-				 
+//				 
 				while ((bit = decode(fp, root)) != EOF) {
 				    putchar(bit);
 				}
+				
+				// Melakukan dekompresi dan menampilkan karakter hasil dekompresi
+			   //decompress("output.bin", root);
+				
+			    // Menutup file dan membersihkan memori
+			    fclose(fp);
 				
 				printf("\n\nPress any key to continue...");
 				getchar();
