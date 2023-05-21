@@ -101,8 +101,8 @@ int main() {
 			    if(root == NULL){
 			    	printf("root kosong");
 				}else{
-				    gotoxy(10, 10);
-					PrintTree(root, 0, 10, 10);
+				    gotoxy(17, 18);
+					PrintTree(root, 0, 17, 18);
 				}
 				
 				printf("\n\n\t Huffman Code\n");
