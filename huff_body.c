@@ -189,7 +189,7 @@ void export_file( char* input_text) {
 	fclose(fp);
 }
 
-// Membaca bitstream dari file
+// Fungsi untuk membaca bitstream dari file
 Bitstream read_bitstream(const char* filename) {
     FILE* file = fopen(filename, "rb");
     if (file == NULL) {
@@ -211,10 +211,13 @@ Bitstream read_bitstream(const char* filename) {
 }
 
 void decompress(const char* filename, Taddres root) {
+    // Baca bitstream dari file
     Bitstream bitstream = read_bitstream(filename);
     int byte_count = (bitstream.buffer_size + 7) / 8; // Jumlah byte dalam bitstream
-    int i;
+
+    // Membaca karakter dari bitstream menggunakan Huffman Tree
     Taddres node = root;
+    int i;
     for (i = 0; i < byte_count; i++) { // Mengiterasi melalui byte-bitstream
         unsigned char byte = bitstream.buffer[i];
         int j;
@@ -234,13 +237,46 @@ void decompress(const char* filename, Taddres root) {
         }
     }
 
+    // Bebaskan memori bitstream
     free(bitstream.buffer);
 }
 
+void prosesKompres(const char* namafile) {
+    FILE* file = fopen(namafile, "r");
+    Bitstream bitstream;
+    init_bitstream(&bitstream);
+    
+    if (file == NULL) {
+        printf("Gagal membuka file\n");
+        exit(EXIT_FAILURE);
+    }
 
+ 	char* string = (char*) malloc(255 * sizeof(char));
+	fscanf(file, "%s", string);
+    int i = 0;
+    while (string[i] != '\0') {
+        // Dapatkan karakter dari string
+        char current_char = string[i];
+        // TODO: Lakukan operasi Huffman coding pada current_char menggunakan Huffman Tree
 
+        // Misalnya, jika kita ingin menambahkan bit ke bitstream berdasarkan current_char
+        int bit = current_char - '0';
+        write_bit(&bitstream, bit);
 
+        i++;
+    }
 
+    // Simpan bitstream ke file
+    save_bitstream(&bitstream, "output.bin");
+
+    // Bebaskan memori bitstream
+    free(bitstream.buffer);
+
+    // Bebaskan memori string
+    free(string);
+
+    fclose(file);
+}
 
 // Inisialisasi bitstream
 void init_bitstream(Bitstream* bitstream) {
@@ -278,6 +314,19 @@ void save_bitstream(Bitstream* bitstream, const char* filename) {
 
     fclose(file);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     
     

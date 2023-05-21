@@ -73,6 +73,6 @@ void init_bitstream(Bitstream* bitstream);
 
 void write_bit(Bitstream* bitstream, int bit);
 
-void save_bitstream(Bitstream* bitstream, const char* filename;
+void save_bitstream(Bitstream* bitstream, const char* filename);
 
 #endif
