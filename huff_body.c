@@ -101,25 +101,35 @@ void PrintHuffman(Taddres node, char* result, int n,encoding tamp[])
     PrintHuffman(node->RSon, result, n + 1, tamp);
 }
 
+// Fungsi untuk mengatur posisi kursor di layar
+void gotoxy(int x, int y) {
+    printf("\033[%d;%df", y, x);
+}
 
-
-void PrintTree(Taddres root, int level) {
+void PrintTree(Taddres root, int level, int x, int y) {
     if (root == NULL) {
         return;
     }
-    PrintTree(root->RSon, level + 1);
-    int i;
-    for (i = 0; i < level; i++) {
-        printf("    ");
-    }
-    
+
+    PrintTree(root->RSon, level + 1, x + 6, y); // Posisi x digeser ke kanan sejauh 6
+    gotoxy(x, y); // Mengatur posisi kursor
     if (root->LSon != NULL && root->RSon != NULL) {
-        printf("%d\n", root->freq);
+        printf("%d", root->freq);
     } else {
-        printf("%c:%d\n", root->info, root->freq);
+        printf("%c:%d", root->info, root->freq);
     }
-    PrintTree(root->LSon, level + 1);
+
+    PrintTree(root->LSon, level + 1, x - 6, y); // Posisi x digeser ke kiri sejauh 6
+    y += 2;
+    gotoxy(x, y); // Mengatur posisi kursor
+    if (root->LSon != NULL) {
+        printf("/");
+    }
+    if (root->RSon != NULL) {
+        printf("\\");
+    }
 }
+
 
 void encode(Taddres node, char* result, int level , char* str, int i, char* temp, char** code){
 	if (node == NULL) {
