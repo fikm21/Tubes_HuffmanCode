@@ -115,17 +115,21 @@ void PrintTree(Taddres root, int level, int x, int y) {
     gotoxy(x, y); // Mengatur posisi kursor
 
     if (root->LSon != NULL && root->RSon != NULL) {
-        printf(" %d", root->freq);
+        printf("  %d", root->freq);
     } else {
         printf("%c:%d", root->info, root->freq);
+        gotoxy(x, y);
     }
 
-    PrintTree(root->LSon, level + 1, x - 4, y + 2); // Posisi x digeser ke kiri sejauh 4 dan posisi y ditambah 2
+    PrintTree(root->LSon, level + 1, x - 2, y + 2); // Posisi x digeser ke kiri sejauh 2 dan posisi y ditambah 2
     gotoxy(x, y + 1); // Mengatur posisi kursor untuk anak pertama
-    printf("/");
-
-    if (root->RSon != NULL) {
-        gotoxy(x + 8, y + 1); // Mengatur posisi kursor untuk anak kedua
+    
+	if (root->LSon != NULL){
+		printf("/");
+	}
+    
+	if (root->RSon != NULL) {
+        gotoxy(x + 4, y + 1); // Mengatur posisi kursor untuk anak kedua
         printf("\\");
     }
 }
