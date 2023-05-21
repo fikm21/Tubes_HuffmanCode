@@ -59,6 +59,8 @@ Taddres Build_Huffman(ListQueue *L);
 
 void PrintHuffman(Taddres node, char* result,int n ,encoding tamp[]);
 
+void gotoxy(int x, int y);
+
 void PrintTree(Taddres root, int level, int x, int y);
 
 void encode(Taddres node, char* result, int level , char* str, int i, char* temp, char** code);
