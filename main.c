@@ -167,9 +167,9 @@ int main() {
 				while ((bit = decode(fp, root)) != EOF) {
 				    putchar(bit);
 				}
-//				printf("\n\n\t Decode ke String dari file compress \n\t" );
+				printf("\n\n\t Decode ke String dari file compress \n\t " );
 //				// Melakukan dekompresi dan menampilkan karakter hasil dekompresi
-//			   decompress("output.bin", root);
+			   decompress("output.bin", root);
 				
 			    // Menutup file dan membersihkan memori
 			    fclose(fp);

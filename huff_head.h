@@ -75,4 +75,8 @@ void write_bit(Bitstream* bitstream, int bit);
 
 void save_bitstream(Bitstream* bitstream, const char* filename);
 
+void decompress(const char* filename, Taddres root);
+
+Bitstream read_bitstream(const char* filename);
+
 #endif

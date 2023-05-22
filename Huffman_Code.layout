@@ -1,7 +1,7 @@
 <<<<<<< HEAD
 [Editors]
-Order=6,2,0,1,4,5,3
-Focused=6
+Order=2,0,1,4,5,3,6
+Focused=1
 [Editor_0]
 CursorCol=1
 CursorRow=60
@@ -9,8 +9,8 @@ CursorRow=60
 TopLine=21
 LeftChar=1
 [Editor_3]
-CursorCol=29
-CursorRow=8
+CursorCol=7
+CursorRow=15
 >>>>>>> taufik
 TopLine=1
 LeftChar=1
@@ -20,9 +20,9 @@ CursorRow=3
 TopLine=1
 LeftChar=1
 [Editor_1]
-CursorCol=10
-CursorRow=129
-TopLine=118
+CursorCol=11
+CursorRow=181
+TopLine=157
 LeftChar=1
 [Editor_2]
 CursorCol=1
@@ -30,12 +30,12 @@ CursorRow=12
 TopLine=1
 LeftChar=1
 [Editor_4]
-CursorCol=1
-CursorRow=22
+CursorCol=20
+CursorRow=18
 TopLine=7
 LeftChar=1
 [Editor_6]
-CursorCol=32
-CursorRow=45
-TopLine=253
+CursorCol=51
+CursorRow=221
+TopLine=246
 LeftChar=1
